@@ -14,12 +14,23 @@ import { AnalysesIaModule } from './modules/analyses_ia/analyses_ia.module';
 import { NotificationsModule } from './modules/notifications/notifications.module';
 import { AppareilsMobilesModule } from './modules/appareils_mobiles/appareils_mobiles.module';
 import { ZonesRisqueModule } from './modules/zones_risque/zones_risque.module';
+import { AuthModule } from './feat/auth/auth.module';
 
 @Module({
   imports: [
     DatabaseModule, 
-    UtilisateursModule, 
-    EnfantModule, ContactsUrgenceModule, LocalisationsModule, AlertesModule, HistoriquesStatusAlerteModule, SignalementModule, AnalysesIaModule, NotificationsModule, AppareilsMobilesModule, ZonesRisqueModule
+    UtilisateursModule,
+    EnfantModule, 
+    ContactsUrgenceModule, 
+    LocalisationsModule, 
+    AlertesModule, 
+    HistoriquesStatusAlerteModule, 
+    SignalementModule, 
+    AnalysesIaModule, 
+    NotificationsModule, 
+    AppareilsMobilesModule, 
+    ZonesRisqueModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, ...databaseProviders],
