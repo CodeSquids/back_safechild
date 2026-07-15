@@ -11,41 +11,41 @@ export class Enfant extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column
-  declare id: number 
+  declare id: number;
   
   @Column
   parent_id!: number
   
   @Column
-  nom !: string
+  nom!: string
   
   @Column
-  prenom !: string
+  prenom!: string
   
   @Column
-  genre !: string
+  genre!: string
   
   @Column
-  date_naissance !: Date
+  date_naissance!: Date
   
   @Column
   taille_cm!: number
   
   @Column
-  poids_kg !: number
+  poids_kg!: number
   
   @Column
-  photo_recente_url !: string
+  photo_recente_url!: string
   
   @Column
-  signes_distinctifs !: string
+  signes_distinctifs!: string
   
   @Column
-  donnees_protegees !: boolean // Limite l'affichage public
+  donnees_protegees!: boolean // Limite l'affichage public
   
   @Column
-  created_at !: Date
+  created_at!: Date
   
   @Column
-  updated_at !: Date
+  updated_at!: Date
 }

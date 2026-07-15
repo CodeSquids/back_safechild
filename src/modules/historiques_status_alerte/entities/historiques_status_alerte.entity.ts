@@ -5,20 +5,20 @@ export class HistoriquesStatusAlerte extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column
-  declare id : number //[primary key]
+  declare id: number; //[primary key]
   
   @Column
-  alerte_id! : number //[not null]
+  alerte_id!: number //[not null]
   
   @Column
-  statut !: string
+  statut!: string
   
   @Column
   modifie_par! : number //[not null] // Ref utilisateurs.id
   
   @Column
-  note !: string
+  note!: string
   
   @Column
-  created_at !:Date
+  created_at!: Date
 }

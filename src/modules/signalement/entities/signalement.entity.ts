@@ -5,7 +5,7 @@ export class Signalement extends Model{
   @PrimaryKey
   @AutoIncrement
   @Column
-  declare id: number
+  declare id: number;
 
   @Column
   alerte_id! : number // [not null]

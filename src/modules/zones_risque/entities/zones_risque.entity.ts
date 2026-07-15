@@ -5,26 +5,26 @@ export class ZonesRisque extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column
-  declare id : number 
+  declare id: number; 
   
   @Column
-  nom_zone ! : string
+  nom_zone!: string
   
   @Column
-  niveau_risque! : number
+  niveau_risque!: number
   
   @Column
-  latitude! : number
+  latitude!: number
   
   @Column
-  longitude! : number
+  longitude!: number
   
   @Column
-  rayon_couverture_km! : number
+  rayon_couverture_km!: number
   
   @Column
-  nombre_alertes! : number
+  nombre_alertes!: number
   
   @Column
-  created_at! : Date
+  created_at!: Date
 }

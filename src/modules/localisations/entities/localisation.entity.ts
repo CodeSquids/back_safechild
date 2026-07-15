@@ -5,20 +5,20 @@ export class Localisation extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column
-  declare id: number 
+  declare id: number; 
   
   @Column
-  latitude !: number
+  latitude!: number
   
   @Column
-  longitude !: number
+  longitude!: number
   
   @Column
-  adresse_approximative !: string
+  adresse_approximative!: string
   
   @Column
   precision_metres!: number
   
   @Column
-  created_at !: Date
+  created_at!: Date
 }

@@ -5,7 +5,7 @@ export class Notification extends Model{
   @PrimaryKey
   @AutoIncrement
   @Column
-  declare id: number// [primary key]
+  declare id: number;// [primary key]
   
   @Column
   utilisateur_id !:number// [not null]
