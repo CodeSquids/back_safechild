@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAlerteDto } from './dto/create-alerte.dto';
 import { UpdateAlerteDto } from './dto/update-alerte.dto';
 import { Alerte } from './entities/alerte.entity';
@@ -8,26 +8,41 @@ import { Inject } from '@nestjs/common';
 export class AlertesService {
   constructor(
       @Inject('ALERTE_REPOSITORY')
-        private alerteRepository: typeof Alerte,
-      ) {}
+      private alerteRepository: typeof Alerte,
+  ) {}
 
-  create(createAlerteDto: CreateAlerteDto) {
-    return 'This action adds a new alerte';
-  }
+async create(createAlerteDto: CreateAlerteDto): Promise<Alerte> {
+      const alerte = this.alerteRepository.build(createAlerteDto as any);
+      return await alerte.save();
+    }
 
-  findAll() {
+  async findAll(): Promise<Alerte[]> {
     return this.alerteRepository.findAll<Alerte>();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} alerte`;
+  async findOne(id: number): Promise<Alerte> {
+    const alerte = await this.alerteRepository.findByPk<Alerte>(id);
+    if (!alerte) {
+      throw new NotFoundException(`Alerte with id ${id} not found`);
+    }
+    return alerte;
   }
 
-  update(id: number, updateAlerteDto: UpdateAlerteDto) {
-    return `This action updates a #${id} alerte`;
+  async update(id: number, updateAlerteDto: UpdateAlerteDto): Promise<Alerte> {
+    const alerte = await this.alerteRepository.findByPk<Alerte>(id);
+    if (!alerte) {
+      throw new NotFoundException(`Alerte with id ${id} not found`);
+    }
+    await alerte.update(updateAlerteDto);
+    return alerte;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} alerte`;
+  async remove(id: number): Promise<Alerte> {
+    const alerte = await this.alerteRepository.findByPk<Alerte>(id);
+    if (!alerte) {
+      throw new NotFoundException(`Alerte with id ${id} not found`);
+    }
+    await alerte.destroy();
+    return alerte;
   }
 }

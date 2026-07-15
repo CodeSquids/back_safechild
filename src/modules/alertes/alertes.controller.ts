@@ -8,27 +8,27 @@ export class AlertesController {
   constructor(private readonly alertesService: AlertesService) {}
 
   @Post()
-  create(@Body() createAlerteDto: CreateAlerteDto) {
-    return this.alertesService.create(createAlerteDto);
+  async create(@Body() createAlerteDto: CreateAlerteDto) {
+    return await this.alertesService.create(createAlerteDto);
   }
 
   @Get()
-  findAll() {
-    return this.alertesService.findAll();
+  async findAll() {
+    return await this.alertesService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.alertesService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    return await this.alertesService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAlerteDto: UpdateAlerteDto) {
-    return this.alertesService.update(+id, updateAlerteDto);
+  async update(@Param('id') id: string, @Body() updateAlerteDto: UpdateAlerteDto) {
+    return await this.alertesService.update(+id, updateAlerteDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.alertesService.remove(+id);
+  async remove(@Param('id') id: string) {
+    return await this.alertesService.remove(+id);
   }
 }
