@@ -1,27 +1,34 @@
-import { AutoIncrement, Column, Model, PrimaryKey, Table } from "sequelize-typescript"
+import {
+  Table,
+  Column,
+  Model,
+  PrimaryKey,
+  AutoIncrement,
+} from 'sequelize-typescript';
+import { DataType } from 'sequelize-typescript';
 
 @Table
-export class AppareilsMobile extends Model{
+export class AppareilsMobile extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column
-  declare id :number 
-  
+  declare id: number;
+
   @Column
-  utilisateur_id !:number 
-  
+  utilisateur_id!: number;
+
   @Column
-  token_appareil !:string
-  
+  token_appareil!: string;
+
   @Column
-  plateforme !:string // ios, android, web
-  
+  plateforme!: string; // ios, android, web
+
+  @Column(DataType.DECIMAL)
+  derniere_latitude!: number;
+
+  @Column(DataType.DECIMAL)
+  derniere_longitude!: number;
+
   @Column
-  derniere_latitude ! : number
-  
-  @Column
-  derniere_longitude ! : number
-  
-  @Column
-  updated_at ! : Date
+  updated_at!: Date;
 }

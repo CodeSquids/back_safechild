@@ -7,7 +7,7 @@ import { Inject } from '@nestjs/common';
 @Injectable()
 export class AlertesService {
   constructor(
-      @Inject('ENFANT_REPOSITORY')
+      @Inject('ALERTE_REPOSITORY')
         private alerteRepository: typeof Alerte,
       ) {}
 
