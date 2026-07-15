@@ -4,6 +4,7 @@ import { AlertesController } from './alertes.controller';
 import { DatabaseModule } from 'src/config/database/database.module';
 import { alerteProviders } from './alertes';
 @Module({
+  imports: [DatabaseModule],
   controllers: [AlertesController],
   providers: [AlertesService, ...alerteProviders],
 })

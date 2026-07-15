@@ -5,6 +5,7 @@ import { DatabaseModule } from 'src/config/database/database.module';
 import { appareilMobileProviders } from './appareils_mobiles';
 
 @Module({
+  imports: [DatabaseModule],
   controllers: [AppareilsMobilesController],
   providers: [AppareilsMobilesService, ...appareilMobileProviders],
 })
