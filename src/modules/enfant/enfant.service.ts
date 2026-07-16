@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateEnfantDto } from './dto/create-enfant.dto';
 import { UpdateEnfantDto } from './dto/update-enfant.dto';
 import { Enfant } from './entities/enfant.entity';
@@ -8,26 +8,41 @@ import { Inject } from '@nestjs/common';
 export class EnfantService {
   constructor(
     @Inject('ENFANT_REPOSITORY')
-      private enfantRepository: typeof Enfant,
-    ) {}
+    private enfantRepository: typeof Enfant,
+  ) { }
 
-  create(createEnfantDto: CreateEnfantDto) {
-    return 'This action adds a new enfant';
+  async create(CreateEnfantDto: CreateEnfantDto): Promise<Enfant> {
+    const enfant = this.enfantRepository.build(CreateEnfantDto as any);
+    return await enfant.save();
   }
 
-  findAll() {
+  async findAll(): Promise<Enfant[]> {
     return this.enfantRepository.findAll<Enfant>();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} enfant`;
+  async findOne(id: number): Promise<Enfant> {
+    const enfant = await this.enfantRepository.findByPk(id);
+    if (!enfant) {
+      throw new NotFoundException(`Enfant with id ${id} not found`);
+    }
+    return enfant;
   }
 
-  update(id: number, updateEnfantDto: UpdateEnfantDto) {
-    return `This action updates a #${id} enfant`;
+  async update(id: number, UpdateEnfantDto: UpdateEnfantDto): Promise<Enfant> {
+    const enfant = await this.enfantRepository.findByPk(id);
+    if (!enfant) {
+      throw new NotFoundException(`Enfant with id ${id} not found`);
+    }
+    await enfant.update(UpdateEnfantDto);
+    return enfant;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} enfant`;
+  async remove(id: number): Promise<Enfant> {
+    const enfant = await this.enfantRepository.findByPk(id);
+    if (!enfant) {
+      throw new NotFoundException(`Enfant with id ${id} not found`);
+    }
+    await enfant.destroy();
+    return enfant;
   }
 }

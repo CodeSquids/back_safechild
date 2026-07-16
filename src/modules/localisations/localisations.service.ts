@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateLocalisationDto } from './dto/create-localisation.dto';
 import { UpdateLocalisationDto } from './dto/update-localisation.dto';
 import { Localisation } from './entities/localisation.entity';
@@ -11,23 +11,38 @@ export class LocalisationsService {
         private localisationRepository: typeof Localisation,
       ) {}
 
-  create(createLocalisationDto: CreateLocalisationDto) {
-    return 'This action adds a new localisation';
-  }
-
-  findAll() {
-    return this.localisationRepository.findAll<Localisation>();
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} localisation`;
-  }
-
-  update(id: number, updateLocalisationDto: UpdateLocalisationDto) {
-    return `This action updates a #${id} localisation`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} localisation`;
-  }
+  async create(CreateLocalisationDto: CreateLocalisationDto): Promise<Localisation> {
+      const localisation = this.localisationRepository.build(CreateLocalisationDto as any);
+      return await localisation.save();
+    }
+  
+    async findAll(): Promise<Localisation[]> {
+      return this.localisationRepository.findAll<Localisation>();
+    }
+  
+    async findOne(id: number): Promise<Localisation> {
+      const localisation = await this.localisationRepository.findByPk(id);
+      if (!localisation) {
+        throw new NotFoundException(`Localisation with id ${id} not found`);
+      }
+      return localisation;
+    }
+  
+    async update(id: number, UpdateLocalisationDto: UpdateLocalisationDto): Promise<Localisation> {
+      const localisation = await this.localisationRepository.findByPk(id);
+      if (!localisation) {
+        throw new NotFoundException(`Localisation with id ${id} not found`);
+      }
+      await localisation.update(UpdateLocalisationDto);
+      return localisation;
+    }
+  
+    async remove(id: number): Promise<Localisation> {
+      const localisation = await this.localisationRepository.findByPk(id);
+      if (!localisation) {
+        throw new NotFoundException(`Localisation with id ${id} not found`);
+      }
+      await localisation.destroy();
+      return localisation;
+    }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateContactsUrgenceDto } from './dto/create-contacts_urgence.dto';
 import { UpdateContactsUrgenceDto } from './dto/update-contacts_urgence.dto';
 import { ContactsUrgence } from './entities/contacts_urgence.entity';
@@ -11,23 +11,38 @@ export class ContactsUrgenceService {
         private contactsUrgenceRepository: typeof ContactsUrgence,
       ) {}
 
-  create(createContactsUrgenceDto: CreateContactsUrgenceDto) {
-    return 'This action adds a new contactsUrgence';
+  async create(createContactsUrgenceDto: CreateContactsUrgenceDto): Promise<ContactsUrgence>  {
+    const ContactsUrgence = this.contactsUrgenceRepository.build(createContactsUrgenceDto as any);
+    return await ContactsUrgence.save();
   }
 
-  findAll() {
+  async findAll(): Promise<ContactsUrgence[]>  {
     return this.contactsUrgenceRepository.findAll<ContactsUrgence>();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} contactsUrgence`;
+  async findOne(id: number): Promise<ContactsUrgence>  {
+    const ContactsUrgence = await this.contactsUrgenceRepository.findByPk(id);
+    if (!ContactsUrgence) {
+      throw new NotFoundException(`ContactsUrgence with id ${id} not found`);
+    }
+    return ContactsUrgence;
   }
 
-  update(id: number, updateContactsUrgenceDto: UpdateContactsUrgenceDto) {
-    return `This action updates a #${id} contactsUrgence`;
+  async update(id: number, updateContactsUrgenceDto: UpdateContactsUrgenceDto): Promise<ContactsUrgence>  {
+    const ContactsUrgence = await this.contactsUrgenceRepository.findByPk(id);
+    if (!ContactsUrgence) {
+      throw new NotFoundException(`ContactsUrgence with id ${id} not found`);
+    }
+    await ContactsUrgence.update(updateContactsUrgenceDto);
+    return ContactsUrgence;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} contactsUrgence`;
+  async remove(id: number): Promise<ContactsUrgence>  {
+    const ContactsUrgence = await this.contactsUrgenceRepository.findByPk(id);
+    if (!ContactsUrgence) {
+      throw new NotFoundException(`ContactsUrgence with id ${id} not found`);
+    }
+    await ContactsUrgence.destroy();
+    return ContactsUrgence;
   }
 }

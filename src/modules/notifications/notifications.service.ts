@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import { Notification } from './entities/notification.entity';
@@ -11,23 +11,38 @@ export class NotificationsService {
         private notificationtRepository: typeof Notification,
       ) {}
   
-  create(createNotificationDto: CreateNotificationDto) {
-    return 'This action adds a new notification';
+  async create(CreateNotificationDto: CreateNotificationDto): Promise<Notification> {
+    const notification = this.notificationtRepository.build(CreateNotificationDto as any);
+    return await notification.save();
   }
 
-  findAll() {
+  async findAll(): Promise<Notification[]> {
     return this.notificationtRepository.findAll<Notification>();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} notification`;
+  async findOne(id: number): Promise<Notification> {
+    const notification = await this.notificationtRepository.findByPk(id);
+    if (!notification) {
+      throw new NotFoundException(`Notification with id ${id} not found`);
+    }
+    return notification;
   }
 
-  update(id: number, updateNotificationDto: UpdateNotificationDto) {
-    return `This action updates a #${id} notification`;
+  async update(id: number, UpdateNotificationDto: UpdateNotificationDto): Promise<Notification> {
+    const notification = await this.notificationtRepository.findByPk(id);
+    if (!notification) {
+      throw new NotFoundException(`Notification with id ${id} not found`);
+    }
+    await notification.update(UpdateNotificationDto);
+    return notification;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} notification`;
+  async remove(id: number): Promise<Notification> {
+    const notification = await this.notificationtRepository.findByPk(id);
+    if (!notification) {
+      throw new NotFoundException(`Notification with id ${id} not found`);
+    }
+    await notification.destroy();
+    return notification;
   }
 }
