@@ -10,4 +10,6 @@ export class CreateAlerteDto {
   niveau_urgence!: string;
   date_declenchement!: Date;
   date_resolution?: Date;
+  created_at?: Date;
+  updated_at?: Date;
 }
