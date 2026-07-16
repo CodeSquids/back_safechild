@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAppareilsMobileDto } from './dto/create-appareils_mobile.dto';
 import { UpdateAppareilsMobileDto } from './dto/update-appareils_mobile.dto';
 import { AppareilsMobile } from './entities/appareils_mobile.entity';
@@ -11,23 +11,37 @@ export class AppareilsMobilesService {
         private appareilMobileRepository: typeof AppareilsMobile,
       ) {}
 
-  create(createAppareilsMobileDto: CreateAppareilsMobileDto) {
-    return 'This action adds a new appareilsMobile';
+  async create(createAppareilsMobileDto: CreateAppareilsMobileDto): Promise<AppareilsMobile>  {
+    const AppareilsMobile = this.appareilMobileRepository.build(createAppareilsMobileDto as any);
+    return await AppareilsMobile.save();
   }
 
-  findAll() {
+  async findAll(): Promise<AppareilsMobile[]>  {
     return this.appareilMobileRepository.findAll<AppareilsMobile>();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} appareilsMobile`;
+  async findOne(id: number): Promise<AppareilsMobile> {
+    const AppareilsMobile = await this.appareilMobileRepository.findByPk(id);
+    if (!AppareilsMobile) {
+      throw new NotFoundException(`AppareilsMobile with id ${id} not found`);
+    }
+    return AppareilsMobile;
   }
 
-  update(id: number, updateAppareilsMobileDto: UpdateAppareilsMobileDto) {
-    return `This action updates a #${id} appareilsMobile`;
+  async update(id: number, updateAppareilsMobileDto: UpdateAppareilsMobileDto): Promise<AppareilsMobile>  {
+    const AppareilsMobile = await this.appareilMobileRepository.findByPk(id);
+    if (!AppareilsMobile) {
+      throw new NotFoundException(`AppareilsMobile with id ${id} not found`);
+    }
+    await AppareilsMobile.update(updateAppareilsMobileDto);
+    return AppareilsMobile;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} appareilsMobile`;
-  }
+  async remove(id: number): Promise<AppareilsMobile> {
+const AppareilsMobile = await this.appareilMobileRepository.findByPk(id);
+    if (!AppareilsMobile) {
+      throw new NotFoundException(`AppareilsMobile with id ${id} not found`);
+    }
+    await AppareilsMobile.destroy();
+    return AppareilsMobile;  }
 }

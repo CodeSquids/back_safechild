@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAnalysesIaDto } from './dto/create-analyses_ia.dto';
 import { UpdateAnalysesIaDto } from './dto/update-analyses_ia.dto';
 import { AnalysesIa } from './entities/analyses_ia.entity';
@@ -7,26 +7,42 @@ import { Inject } from '@nestjs/common';
 @Injectable()
 export class AnalysesIaService {
   constructor(
-      @Inject('ANALYSEIA_REPOSITORY')
-        private analyseIaRepository: typeof AnalysesIa,
-      ) {}
-  create(createAnalysesIaDto: CreateAnalysesIaDto) {
-    return 'This action adds a new analysesIa';
+    @Inject('ANALYSEIA_REPOSITORY')
+    private analyseIaRepository: typeof AnalysesIa,
+  ) { }
+  
+  async create(createAnalysesIaDto: CreateAnalysesIaDto): Promise<AnalysesIa> {
+    const analyseIa = this.analyseIaRepository.build(createAnalysesIaDto as any)
+    return await analyseIa.save();
   }
 
-  findAll() {
+  async findAll(): Promise<AnalysesIa[]> {
     return this.analyseIaRepository.findAll<AnalysesIa>();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} analysesIa`;
+  async findOne(id: number): Promise<AnalysesIa> {
+    const analyseIa = await this.analyseIaRepository.findByPk(id);
+    if (!analyseIa) {
+      throw new NotFoundException(`analyseIa with id ${id} not found`);
+    }
+    return analyseIa;
   }
 
-  update(id: number, updateAnalysesIaDto: UpdateAnalysesIaDto) {
-    return `This action updates a #${id} analysesIa`;
+  async update(id: number, updateAnalysesIaDto: UpdateAnalysesIaDto): Promise<AnalysesIa> {
+    const analyseIa = await this.analyseIaRepository.findByPk(id);
+    if (!analyseIa) {
+      throw new NotFoundException(`Analyse IA with id ${id} not found`);
+    }
+    await analyseIa.update(updateAnalysesIaDto);
+    return analyseIa;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} analysesIa`;
+  async remove(id: number): Promise<AnalysesIa> {
+    const analyseIa = await this.analyseIaRepository.findByPk(id);
+    if (!analyseIa) {
+      throw new NotFoundException(`analyseIa with id ${id} not found`);
+    }
+    await analyseIa.destroy();
+    return analyseIa;
   }
 }
