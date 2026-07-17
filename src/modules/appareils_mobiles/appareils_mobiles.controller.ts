@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AppareilsMobilesService } from './appareils_mobiles.service';
 import { CreateAppareilsMobileDto } from './dto/create-appareils_mobile.dto';
 import { UpdateAppareilsMobileDto } from './dto/update-appareils_mobile.dto';
 
 @Controller('appareils-mobiles')
 export class AppareilsMobilesController {
-  constructor(private readonly appareilsMobilesService: AppareilsMobilesService) {}
+  constructor(
+    private readonly appareilsMobilesService: AppareilsMobilesService,
+  ) {}
 
   @Post()
   create(@Body() createAppareilsMobileDto: CreateAppareilsMobileDto) {
@@ -23,7 +33,10 @@ export class AppareilsMobilesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAppareilsMobileDto: UpdateAppareilsMobileDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateAppareilsMobileDto: UpdateAppareilsMobileDto,
+  ) {
     return this.appareilsMobilesService.update(+id, updateAppareilsMobileDto);
   }
 

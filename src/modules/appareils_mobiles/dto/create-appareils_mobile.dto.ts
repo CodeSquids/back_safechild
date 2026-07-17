@@ -4,5 +4,5 @@ export class CreateAppareilsMobileDto {
   plateforme!: string; // ios, android, web
   derniere_latitude!: number;
   derniere_longitude!: number;
-  updated_at!: Date;  
+  updated_at!: Date;
 }

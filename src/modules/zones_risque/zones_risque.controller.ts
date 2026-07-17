@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ZonesRisqueService } from './zones_risque.service';
 import { CreateZonesRisqueDto } from './dto/create-zones_risque.dto';
 import { UpdateZonesRisqueDto } from './dto/update-zones_risque.dto';
@@ -23,7 +31,10 @@ export class ZonesRisqueController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateZonesRisqueDto: UpdateZonesRisqueDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateZonesRisqueDto: UpdateZonesRisqueDto,
+  ) {
     return this.zonesRisqueService.update(+id, updateZonesRisqueDto);
   }
 

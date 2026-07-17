@@ -7,6 +7,9 @@ import { historiquesStatusAlerteProviders } from './historiques_status_alerte';
 @Module({
   imports: [DatabaseModule],
   controllers: [HistoriquesStatusAlerteController],
-  providers: [HistoriquesStatusAlerteService, ...historiquesStatusAlerteProviders],
+  providers: [
+    HistoriquesStatusAlerteService,
+    ...historiquesStatusAlerteProviders,
+  ],
 })
 export class HistoriquesStatusAlerteModule {}

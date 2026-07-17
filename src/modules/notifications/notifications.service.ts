@@ -7,12 +7,16 @@ import { Inject } from '@nestjs/common';
 @Injectable()
 export class NotificationsService {
   constructor(
-      @Inject('NOTIFICATION_REPOSITORY')
-        private notificationtRepository: typeof Notification,
-      ) {}
-  
-  async create(CreateNotificationDto: CreateNotificationDto): Promise<Notification> {
-    const notification = this.notificationtRepository.build(CreateNotificationDto as any);
+    @Inject('NOTIFICATION_REPOSITORY')
+    private notificationtRepository: typeof Notification,
+  ) {}
+
+  async create(
+    CreateNotificationDto: CreateNotificationDto,
+  ): Promise<Notification> {
+    const notification = this.notificationtRepository.build(
+      CreateNotificationDto as any,
+    );
     return await notification.save();
   }
 
@@ -28,7 +32,10 @@ export class NotificationsService {
     return notification;
   }
 
-  async update(id: number, UpdateNotificationDto: UpdateNotificationDto): Promise<Notification> {
+  async update(
+    id: number,
+    UpdateNotificationDto: UpdateNotificationDto,
+  ): Promise<Notification> {
     const notification = await this.notificationtRepository.findByPk(id);
     if (!notification) {
       throw new NotFoundException(`Notification with id ${id} not found`);

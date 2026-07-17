@@ -4,4 +4,4 @@ export const alerteProviders = [
     provide: 'ALERTE_REPOSITORY',
     useValue: Alerte,
   },
-]
+];

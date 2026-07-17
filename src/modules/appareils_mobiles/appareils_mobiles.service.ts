@@ -7,16 +7,20 @@ import { Inject } from '@nestjs/common';
 @Injectable()
 export class AppareilsMobilesService {
   constructor(
-      @Inject('APPAREILMOBILE_REPOSITORY')
-        private appareilMobileRepository: typeof AppareilsMobile,
-      ) {}
+    @Inject('APPAREILMOBILE_REPOSITORY')
+    private appareilMobileRepository: typeof AppareilsMobile,
+  ) {}
 
-  async create(createAppareilsMobileDto: CreateAppareilsMobileDto): Promise<AppareilsMobile>  {
-    const AppareilsMobile = this.appareilMobileRepository.build(createAppareilsMobileDto as any);
+  async create(
+    createAppareilsMobileDto: CreateAppareilsMobileDto,
+  ): Promise<AppareilsMobile> {
+    const AppareilsMobile = this.appareilMobileRepository.build(
+      createAppareilsMobileDto as any,
+    );
     return await AppareilsMobile.save();
   }
 
-  async findAll(): Promise<AppareilsMobile[]>  {
+  async findAll(): Promise<AppareilsMobile[]> {
     return this.appareilMobileRepository.findAll<AppareilsMobile>();
   }
 
@@ -28,7 +32,10 @@ export class AppareilsMobilesService {
     return AppareilsMobile;
   }
 
-  async update(id: number, updateAppareilsMobileDto: UpdateAppareilsMobileDto): Promise<AppareilsMobile>  {
+  async update(
+    id: number,
+    updateAppareilsMobileDto: UpdateAppareilsMobileDto,
+  ): Promise<AppareilsMobile> {
     const AppareilsMobile = await this.appareilMobileRepository.findByPk(id);
     if (!AppareilsMobile) {
       throw new NotFoundException(`AppareilsMobile with id ${id} not found`);
@@ -38,10 +45,11 @@ export class AppareilsMobilesService {
   }
 
   async remove(id: number): Promise<AppareilsMobile> {
-const AppareilsMobile = await this.appareilMobileRepository.findByPk(id);
+    const AppareilsMobile = await this.appareilMobileRepository.findByPk(id);
     if (!AppareilsMobile) {
       throw new NotFoundException(`AppareilsMobile with id ${id} not found`);
     }
     await AppareilsMobile.destroy();
-    return AppareilsMobile;  }
+    return AppareilsMobile;
+  }
 }

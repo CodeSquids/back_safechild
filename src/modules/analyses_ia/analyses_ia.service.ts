@@ -9,10 +9,12 @@ export class AnalysesIaService {
   constructor(
     @Inject('ANALYSEIA_REPOSITORY')
     private analyseIaRepository: typeof AnalysesIa,
-  ) { }
-  
+  ) {}
+
   async create(createAnalysesIaDto: CreateAnalysesIaDto): Promise<AnalysesIa> {
-    const analyseIa = this.analyseIaRepository.build(createAnalysesIaDto as any)
+    const analyseIa = this.analyseIaRepository.build(
+      createAnalysesIaDto as any,
+    );
     return await analyseIa.save();
   }
 
@@ -28,7 +30,10 @@ export class AnalysesIaService {
     return analyseIa;
   }
 
-  async update(id: number, updateAnalysesIaDto: UpdateAnalysesIaDto): Promise<AnalysesIa> {
+  async update(
+    id: number,
+    updateAnalysesIaDto: UpdateAnalysesIaDto,
+  ): Promise<AnalysesIa> {
     const analyseIa = await this.analyseIaRepository.findByPk(id);
     if (!analyseIa) {
       throw new NotFoundException(`Analyse IA with id ${id} not found`);

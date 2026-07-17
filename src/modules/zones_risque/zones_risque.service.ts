@@ -1,4 +1,4 @@
-import { Injectable ,NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateZonesRisqueDto } from './dto/create-zones_risque.dto';
 import { UpdateZonesRisqueDto } from './dto/update-zones_risque.dto';
 import { ZonesRisque } from './entities/zones_risque.entity';
@@ -7,12 +7,16 @@ import { Inject } from '@nestjs/common';
 @Injectable()
 export class ZonesRisqueService {
   constructor(
-      @Inject('ZONESRISQUE_REPOSITORY')
-        private zonesRisqueRepository: typeof ZonesRisque,
-      ) {}
+    @Inject('ZONESRISQUE_REPOSITORY')
+    private zonesRisqueRepository: typeof ZonesRisque,
+  ) {}
 
-  async create(createZonesRisqueDto: CreateZonesRisqueDto): Promise<ZonesRisque> {
-    const zonesRisque = this.zonesRisqueRepository.build(createZonesRisqueDto as any);
+  async create(
+    createZonesRisqueDto: CreateZonesRisqueDto,
+  ): Promise<ZonesRisque> {
+    const zonesRisque = this.zonesRisqueRepository.build(
+      createZonesRisqueDto as any,
+    );
     return await zonesRisque.save();
   }
 
@@ -28,7 +32,10 @@ export class ZonesRisqueService {
     return zonesRisque;
   }
 
-  async update(id: number, updateZonesRisqueDto: UpdateZonesRisqueDto): Promise<ZonesRisque> {
+  async update(
+    id: number,
+    updateZonesRisqueDto: UpdateZonesRisqueDto,
+  ): Promise<ZonesRisque> {
     const zonesRisque = await this.zonesRisqueRepository.findByPk(id);
     if (!zonesRisque) {
       throw new NotFoundException(`ZonesRisque with id ${id} not found`);

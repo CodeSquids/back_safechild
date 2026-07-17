@@ -1,15 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { HistoriquesStatusAlerteService } from './historiques_status_alerte.service';
 import { CreateHistoriquesStatusAlerteDto } from './dto/create-historiques_status_alerte.dto';
 import { UpdateHistoriquesStatusAlerteDto } from './dto/update-historiques_status_alerte.dto';
 
 @Controller('historiques-status-alerte')
 export class HistoriquesStatusAlerteController {
-  constructor(private readonly historiquesStatusAlerteService: HistoriquesStatusAlerteService) {}
+  constructor(
+    private readonly historiquesStatusAlerteService: HistoriquesStatusAlerteService,
+  ) {}
 
   @Post()
-  create(@Body() createHistoriquesStatusAlerteDto: CreateHistoriquesStatusAlerteDto) {
-    return this.historiquesStatusAlerteService.create(createHistoriquesStatusAlerteDto);
+  create(
+    @Body() createHistoriquesStatusAlerteDto: CreateHistoriquesStatusAlerteDto,
+  ) {
+    return this.historiquesStatusAlerteService.create(
+      createHistoriquesStatusAlerteDto,
+    );
   }
 
   @Get()
@@ -23,8 +37,14 @@ export class HistoriquesStatusAlerteController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHistoriquesStatusAlerteDto: UpdateHistoriquesStatusAlerteDto) {
-    return this.historiquesStatusAlerteService.update(+id, updateHistoriquesStatusAlerteDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateHistoriquesStatusAlerteDto: UpdateHistoriquesStatusAlerteDto,
+  ) {
+    return this.historiquesStatusAlerteService.update(
+      +id,
+      updateHistoriquesStatusAlerteDto,
+    );
   }
 
   @Delete(':id')

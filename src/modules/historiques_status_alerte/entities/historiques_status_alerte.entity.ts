@@ -1,4 +1,10 @@
-import { AutoIncrement, Column, Model, PrimaryKey, Table } from "sequelize-typescript";
+import {
+  AutoIncrement,
+  Column,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript';
 
 @Table
 export class HistoriquesStatusAlerte extends Model {
@@ -6,19 +12,19 @@ export class HistoriquesStatusAlerte extends Model {
   @AutoIncrement
   @Column
   declare id: number; //[primary key]
-  
+
   @Column
-  alerte_id!: number //[not null]
-  
+  alerte_id!: number; //[not null]
+
   @Column
-  statut!: string
-  
+  statut!: string;
+
   @Column
-  modifie_par! : number //[not null] // Ref utilisateurs.id
-  
+  modifie_par!: number; //[not null] // Ref utilisateurs.id
+
   @Column
-  note!: string
-  
+  note!: string;
+
   @Column
-  created_at!: Date
+  created_at!: Date;
 }

@@ -11,8 +11,12 @@ export class UtilisateursService {
     private utilisateurRepository: typeof Utilisateur,
   ) {}
 
-  async create(createUtilisateurDto: CreateUtilisateurDto): Promise<Utilisateur> {
-    const utilisateur = this.utilisateurRepository.build(createUtilisateurDto as any);
+  async create(
+    createUtilisateurDto: CreateUtilisateurDto,
+  ): Promise<Utilisateur> {
+    const utilisateur = this.utilisateurRepository.build(
+      createUtilisateurDto as any,
+    );
     return await utilisateur.save();
   }
 
@@ -29,14 +33,19 @@ export class UtilisateursService {
   }
 
   async findOneByEmail(email: string): Promise<Utilisateur> {
-    const utilisateur = await this.utilisateurRepository.findOne({ where: { email } });
+    const utilisateur = await this.utilisateurRepository.findOne({
+      where: { email },
+    });
     if (!utilisateur) {
       throw new NotFoundException(`Utilisateur with email ${email} not found`);
     }
     return utilisateur;
   }
 
-  async update(id: number, updateUtilisateurDto: UpdateUtilisateurDto): Promise<Utilisateur> {
+  async update(
+    id: number,
+    updateUtilisateurDto: UpdateUtilisateurDto,
+  ): Promise<Utilisateur> {
     const utilisateur = await this.utilisateurRepository.findByPk(id);
     if (!utilisateur) {
       throw new NotFoundException(`Utilisateur with id ${id} not found`);

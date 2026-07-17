@@ -7,14 +7,14 @@ import { Inject } from '@nestjs/common';
 @Injectable()
 export class AlertesService {
   constructor(
-      @Inject('ALERTE_REPOSITORY')
-      private alerteRepository: typeof Alerte,
+    @Inject('ALERTE_REPOSITORY')
+    private alerteRepository: typeof Alerte,
   ) {}
 
-async create(createAlerteDto: CreateAlerteDto): Promise<Alerte> {
-      const alerte = this.alerteRepository.build(createAlerteDto as any);
-      return await alerte.save();
-    }
+  async create(createAlerteDto: CreateAlerteDto): Promise<Alerte> {
+    const alerte = this.alerteRepository.build(createAlerteDto as any);
+    return await alerte.save();
+  }
 
   async findAll(): Promise<Alerte[]> {
     return this.alerteRepository.findAll<Alerte>();

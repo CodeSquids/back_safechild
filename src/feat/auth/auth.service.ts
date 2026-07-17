@@ -35,7 +35,10 @@ export class AuthService {
     // Remove the password hash from the returned user
     const { mot_de_passe_hash, ...result } = user;
     return {
-      access_token: this.jwtService.sign({ email: result.email, sub: result.id }),
+      access_token: this.jwtService.sign({
+        email: result.email,
+        sub: result.id,
+      }),
       user: result,
     };
   }
@@ -44,14 +47,20 @@ export class AuthService {
     // Find the user by email
     const user = await this.usersService.findOneByEmail(email);
     // Compare the password
-    const passwordValid = await bcrypt.compare(password, user.mot_de_passe_hash);
+    const passwordValid = await bcrypt.compare(
+      password,
+      user.mot_de_passe_hash,
+    );
     if (!passwordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
     // Remove the password hash from the returned user
     const { mot_de_passe_hash, ...result } = user;
     return {
-      access_token: this.jwtService.sign({ email: result.email, sub: result.id }),
+      access_token: this.jwtService.sign({
+        email: result.email,
+        sub: result.id,
+      }),
       user: result,
     };
   }

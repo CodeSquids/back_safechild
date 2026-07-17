@@ -7,12 +7,16 @@ import { Inject } from '@nestjs/common';
 @Injectable()
 export class SignalementService {
   constructor(
-      @Inject('SIGNALEMENT_REPOSITORY')
-        private signalementRepository: typeof Signalement,
-      ) {}
-  
-  async create(CreateSignalementDto: CreateSignalementDto): Promise<Signalement> {
-    const signalement = this.signalementRepository.build(CreateSignalementDto as any);
+    @Inject('SIGNALEMENT_REPOSITORY')
+    private signalementRepository: typeof Signalement,
+  ) {}
+
+  async create(
+    CreateSignalementDto: CreateSignalementDto,
+  ): Promise<Signalement> {
+    const signalement = this.signalementRepository.build(
+      CreateSignalementDto as any,
+    );
     return await signalement.save();
   }
 
@@ -28,7 +32,10 @@ export class SignalementService {
     return signalement;
   }
 
-  async update(id: number, UpdateSignalementDto: UpdateSignalementDto): Promise<Signalement> {
+  async update(
+    id: number,
+    UpdateSignalementDto: UpdateSignalementDto,
+  ): Promise<Signalement> {
     const signalement = await this.signalementRepository.findByPk(id);
     if (!signalement) {
       throw new NotFoundException(`Signalement with id ${id} not found`);

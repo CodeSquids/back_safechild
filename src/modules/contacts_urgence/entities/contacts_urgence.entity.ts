@@ -1,4 +1,10 @@
-import { AutoIncrement, Column, Model, PrimaryKey, Table } from "sequelize-typescript"
+import {
+  AutoIncrement,
+  Column,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript';
 
 @Table
 export class ContactsUrgence extends Model {
@@ -6,22 +12,22 @@ export class ContactsUrgence extends Model {
   @AutoIncrement
   @Column
   declare id: number; //[primary key]
-  
+
   @Column
-  enfant_id!:number //[not null]
-  
+  enfant_id!: number; //[not null]
+
   @Column
-  nom_complet!: string
-  
+  nom_complet!: string;
+
   @Column
-  relation!: string // pere, mere, tuteur, autre
-  
+  relation!: string; // pere, mere, tuteur, autre
+
   @Column
-  telephone!: string
-  
+  telephone!: string;
+
   @Column
-  est_principal!: boolean
-  
+  est_principal!: boolean;
+
   @Column
-  created_at!: Date
+  created_at!: Date;
 }

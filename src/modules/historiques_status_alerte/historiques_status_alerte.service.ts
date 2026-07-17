@@ -7,12 +7,17 @@ import { Inject } from '@nestjs/common';
 @Injectable()
 export class HistoriquesStatusAlerteService {
   constructor(
-      @Inject('HISTORIQUESTATUSALERTE_REPOSITORY')
-        private historiquesStatusAlerteRepository: typeof HistoriquesStatusAlerte,
-      ) {}
+    @Inject('HISTORIQUESTATUSALERTE_REPOSITORY')
+    private historiquesStatusAlerteRepository: typeof HistoriquesStatusAlerte,
+  ) {}
 
-  async create(createHistoriquesStatusAlerteDto: CreateHistoriquesStatusAlerteDto): Promise<HistoriquesStatusAlerte> {
-    const historiquesStatusAlerte = this.historiquesStatusAlerteRepository.build(createHistoriquesStatusAlerteDto as any);
+  async create(
+    createHistoriquesStatusAlerteDto: CreateHistoriquesStatusAlerteDto,
+  ): Promise<HistoriquesStatusAlerte> {
+    const historiquesStatusAlerte =
+      this.historiquesStatusAlerteRepository.build(
+        createHistoriquesStatusAlerteDto as any,
+      );
     return await historiquesStatusAlerte.save();
   }
 
@@ -21,26 +26,38 @@ export class HistoriquesStatusAlerteService {
   }
 
   async findOne(id: number): Promise<HistoriquesStatusAlerte> {
-    const historiquesStatusAlerte = await this.historiquesStatusAlerteRepository.findByPk(id);
+    const historiquesStatusAlerte =
+      await this.historiquesStatusAlerteRepository.findByPk(id);
     if (!historiquesStatusAlerte) {
-      throw new NotFoundException(`HistoriquesStatusAlerte with id ${id} not found`);
+      throw new NotFoundException(
+        `HistoriquesStatusAlerte with id ${id} not found`,
+      );
     }
     return historiquesStatusAlerte;
   }
 
-  async update(id: number, updateHistoriquesStatusAlerteDto: UpdateHistoriquesStatusAlerteDto): Promise<HistoriquesStatusAlerte> {
-    const historiquesStatusAlerte = await this.historiquesStatusAlerteRepository.findByPk(id);
+  async update(
+    id: number,
+    updateHistoriquesStatusAlerteDto: UpdateHistoriquesStatusAlerteDto,
+  ): Promise<HistoriquesStatusAlerte> {
+    const historiquesStatusAlerte =
+      await this.historiquesStatusAlerteRepository.findByPk(id);
     if (!historiquesStatusAlerte) {
-      throw new NotFoundException(`HistoriquesStatusAlerte with id ${id} not found`);
+      throw new NotFoundException(
+        `HistoriquesStatusAlerte with id ${id} not found`,
+      );
     }
     await historiquesStatusAlerte.update(updateHistoriquesStatusAlerteDto);
     return historiquesStatusAlerte;
   }
 
   async remove(id: number): Promise<HistoriquesStatusAlerte> {
-    const historiquesStatusAlerte = await this.historiquesStatusAlerteRepository.findByPk(id);
+    const historiquesStatusAlerte =
+      await this.historiquesStatusAlerteRepository.findByPk(id);
     if (!historiquesStatusAlerte) {
-      throw new NotFoundException(`HistoriquesStatusAlerte with id ${id} not found`);
+      throw new NotFoundException(
+        `HistoriquesStatusAlerte with id ${id} not found`,
+      );
     }
     await historiquesStatusAlerte.destroy();
     return historiquesStatusAlerte;

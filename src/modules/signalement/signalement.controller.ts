@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { SignalementService } from './signalement.service';
 import { CreateSignalementDto } from './dto/create-signalement.dto';
 import { UpdateSignalementDto } from './dto/update-signalement.dto';
@@ -23,7 +31,10 @@ export class SignalementController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSignalementDto: UpdateSignalementDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateSignalementDto: UpdateSignalementDto,
+  ) {
     return this.signalementService.update(+id, updateSignalementDto);
   }
 

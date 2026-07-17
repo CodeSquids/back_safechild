@@ -9,7 +9,7 @@ export class EnfantService {
   constructor(
     @Inject('ENFANT_REPOSITORY')
     private enfantRepository: typeof Enfant,
-  ) { }
+  ) {}
 
   async create(CreateEnfantDto: CreateEnfantDto): Promise<Enfant> {
     const enfant = this.enfantRepository.build(CreateEnfantDto as any);

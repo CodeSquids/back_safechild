@@ -9,6 +9,6 @@ export class CreateUtilisateurDto {
   unite_affectation?: string;
   fiabilite_globale?: number;
   consentement_actif?: boolean;
-  created_at?:Date;
-  updated_at?:Date;
+  created_at?: Date;
+  updated_at?: Date;
 }

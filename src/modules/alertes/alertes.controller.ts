@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AlertesService } from './alertes.service';
 import { CreateAlerteDto } from './dto/create-alerte.dto';
 import { UpdateAlerteDto } from './dto/update-alerte.dto';
@@ -23,7 +31,10 @@ export class AlertesController {
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateAlerteDto: UpdateAlerteDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateAlerteDto: UpdateAlerteDto,
+  ) {
     return await this.alertesService.update(+id, updateAlerteDto);
   }
 
